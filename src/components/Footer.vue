@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <van-tabbar v-model="active">
+    <van-tabbar v-model="active" @change="change">
       <van-tabbar-item
         v-for="(item, index) in tab"
         :key="index"
@@ -53,8 +53,15 @@ export default {
   },
   methods: {
     goTo(name) {
-      this.$router.push({ name }); 
+      this.$router.push({ name });
     },
+
+    change(active) {
+      localStorage.setItem("active", active);
+    },
+  },
+  created() {
+    this.active = JSON.parse(localStorage.getItem("active"));
   },
   components: {},
 };
